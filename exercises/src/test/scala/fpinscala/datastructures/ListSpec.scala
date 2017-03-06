@@ -95,4 +95,19 @@ class ListSpec extends FlatSpec with MustMatchers {
     val result = List.length(List(1, 2, 3))
     result mustBe 3
   }
+
+  "List.foldLeft" should "return correct answers when used to implement length" in {
+    val len1 = List.foldLeft(List(1, 2, 3), 0)((x, _) => x + 1)
+    val len2 = List.foldLeft(Nil, 0)((x, _) => x + 1)
+    val len3 = List.foldLeft(List(1, 2, 3, 4, 5), 0)((x, _) => x + 1)
+
+    len1 mustBe 3
+    len2 mustBe 0
+    len3 mustBe 5
+  }
+
+  it should "return total length of strings when given list of strings" in {
+    val result = List.foldLeft(List("apple", "banana", "pear"), 0)((x,s) => x + s.length)
+    result mustBe 15
+  }
 }

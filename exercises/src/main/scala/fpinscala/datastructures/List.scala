@@ -93,15 +93,17 @@ object List { // `List` companion object. Contains functions for creating and wo
     }
 
   def length[A](l: List[A]): Int = {
-    def accum(rest: List[A], acc: Int): Int = 
-      rest match {
-        case Nil => acc
-        case Cons(h, t) => accum(t, acc + 1)
-      }
-    accum(l, 0)
+    foldRight(l, 0)((_, x) => x + 1)
   }
 
-  def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = ???
+  def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = {
+    def loop(lst: List[A], acc: B): B =
+      lst match {
+        case Nil => acc
+        case Cons(x, xs) => loop(xs, f(acc, x))
+      }
+    loop(l, z)
+  }
 
   def map[A,B](l: List[A])(f: A => B): List[B] = ???
 }
