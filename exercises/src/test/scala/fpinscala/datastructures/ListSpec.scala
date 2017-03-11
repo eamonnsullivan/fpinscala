@@ -110,4 +110,9 @@ class ListSpec extends FlatSpec with MustMatchers {
     val result = List.foldLeft(List("apple", "banana", "pear"), 0)((x,s) => x + s.length)
     result mustBe 15
   }
+
+  "List.foldRight" should "return List(1, 2, 3)" in {
+    val result = List.foldRight(List(1,2,3), Nil:List[Int])(Cons(_,_))
+    result mustBe List(1,2,3)
+  }
 }
