@@ -115,4 +115,24 @@ class ListSpec extends FlatSpec with MustMatchers {
     val result = List.foldRight(List(1,2,3), Nil:List[Int])(Cons(_,_))
     result mustBe List(1,2,3)
   }
+
+  "List.sum3" should "return 9 for List(1, 3, 5)" in {
+    val result = List.sum3(List(1, 3, 5))
+    result mustBe 9
+  }
+
+  it should "return 0 for List(1, -1)" in {
+    val result = List.sum3(List(1, -1))
+    result mustBe 0
+  }
+
+  "List.product3" should "return 15 for List(1, 3, 5)" in {
+    val result = List.product3(List(1, 3, 5))
+    result mustBe 15
+  }
+
+  it should "return 0.0 for List(1, 3, 5, 0, 17, 21)" in {
+    val result = List.product3(List(1, 3, 5, 0, 17, 21))
+    result mustBe 0.0
+  }
 }

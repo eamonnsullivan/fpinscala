@@ -62,7 +62,7 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(_, t) => Cons(h, t)
     }
 
-  def drop[A](l: List[A], n: Int): List[A] = 
+  def drop[A](l: List[A], n: Int): List[A] =
     l match {
       case Nil => Nil
       case Cons(h, t) =>
@@ -103,6 +103,14 @@ object List { // `List` companion object. Contains functions for creating and wo
         case Cons(x, xs) => loop(xs, f(acc, x))
       }
     loop(l, z)
+  }
+
+  def sum3(ns: List[Int]): Int = {
+    foldLeft[Int, Int](ns, 0)((acc, x) => acc + x)
+  }
+
+  def product3(ns: List[Double]): Double = {
+    foldLeft[Double, Double](ns, 1)((acc, x) => acc * x)
   }
 
   def map[A,B](l: List[A])(f: A => B): List[B] = ???
