@@ -127,12 +127,37 @@ class ListSpec extends FlatSpec with MustMatchers {
   }
 
   "List.product3" should "return 15 for List(1, 3, 5)" in {
-    val result = List.product3(List(1, 3, 5))
-    result mustBe 15
+    val result = List.product3(List(1.0, 3.0, 5.0))
+    result mustBe 15.0
   }
 
   it should "return 0.0 for List(1, 3, 5, 0, 17, 21)" in {
-    val result = List.product3(List(1, 3, 5, 0, 17, 21))
+    val result = List.product3(List(1.0, 3.0, 5.0, 0.0, 17.0, 21.0))
     result mustBe 0.0
+  }
+
+  "List.reverse" should "return List(3,2,1) for List(1,2,3)" in {
+    val result = List.reverse(List(1,2,3))
+    result mustBe List(3,2,1)
+  }
+
+  it should "return List('Pear','Banana','Apple)" in {
+    val result = List.reverse(List("Apple", "Banana", "Pear"))
+    result mustBe List("Pear", "Banana", "Apple")
+  }
+
+  "List.append2" should "return List(1,2,3,4,5,6) from two lists" in {
+    val result = List.append2(List(1,2,3), List(4,5,6))
+    result mustBe List(1,2,3,4,5,6)
+  }
+
+  "List.concat" should "return List(1,2,3,4,5,6) from List of Lists" in {
+    val result = List.concat(List(List(1,2,3), List(4,5,6)))
+    result mustBe List(1,2,3,4,5,6)
+  }
+
+  "List.map" should "return List(2,3,4) from List(1,2,3)" in {
+    val result = List.map(List(1,2,3))(_ + 1)
+    result mustBe List(2,3,4)
   }
 }
