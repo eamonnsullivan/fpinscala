@@ -160,4 +160,45 @@ class ListSpec extends FlatSpec with MustMatchers {
     val result = List.map(List(1,2,3))(_ + 1)
     result mustBe List(2,3,4)
   }
+
+  "List.filter" should "return a list of even numbers" in {
+    val result = List.filter(List(1,2,3,4,5,6,7))(_ % 2 == 0)
+    result mustBe List(2,4,6)
+  }
+
+  it should "return odd numbers" in {
+    val result = List.filter(List(1,2,3,4,5,6,7))(_ % 2 != 0)
+    result mustBe List(1,3,5,7)
+  }
+
+  "List.flatMap" should "return List(1,1,2,2,3,3)" in {
+    val result = List.flatMap(List(1,2,3))(i => List(i,i))
+    result mustBe List(1,1,2,2,3,3)
+  }
+
+  "List.filter2" should "still return a list of even numbers" in {
+    val result = List.filter(List(1,2,3,4,5,6,7))(_ % 2 == 0)
+    result mustBe List(2,4,6)
+  }
+
+  it should "still return odd numbers" in {
+    val result = List.filter(List(1,2,3,4,5,6,7))(_ % 2 != 0)
+    result mustBe List(1,3,5,7)
+  }
+
+  "List.zipWith" should "return List(5,7,9)" in {
+    val result = List.zipWith(List(1,2,3), List(4,5,6))((x,y) => x + y)
+    result mustBe List(5,7,9)
+  }
+
+  it should "handle strings" in {
+    val result = List.zipWith(List("apple", "banana"), List("pear", "cream"))((x,y) => x + y)
+    result mustBe List("applepear", "bananacream")
+  }
+
+  it should "be able to handle other operators" in {
+    val result = List.zipWith(List(1,2,3), List(4,5,6))((x,y) => x * y)
+    result mustBe List(4,10,18)
+  }
+
 }

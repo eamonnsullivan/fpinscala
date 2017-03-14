@@ -115,10 +115,34 @@ object List { // `List` companion object. Contains functions for creating and wo
     foldRight(l, r)(Cons(_, _))
 
   def concat[A](l: List[List[A]]): List[A] =
-    foldLeft(l, Nil:List[A])(append2(_,_))
+    foldLeft(l, Nil: List[A])(append2(_, _))
 
-  def map[A, B](l: List[A])(f: A => B): List[B] = {
-    foldRight(l,Nil:List[B])((h,t) => Cons(f(h),t))
+  def map[A, B](l: List[A])(f: A => B): List[B] =
+    foldRight(l, Nil: List[B])((h, t) => Cons(f(h), t))
+
+  def filter[A](as: List[A])(f: A => Boolean): List[A] = {
+    def go(lst: List[A], acc: List[A]): List[A] = {
+      lst match {
+        case Cons(h, t) =>
+          if (f(h)) {
+            go(t, append(acc, List[A](h)))
+          } else {
+            go(t, acc)
+          }
+        case _ => acc
+      }
+    }
+    go(as, Nil: List[A])
+  }
+
+  def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] =
+    concat(map(as)(f))
+
+  def filter2[A](as: List[A])(f: A => Boolean): List[A] =
+    flatMap(as)(x => if (f(x)) List(x) else Nil)
+
+  def zipWith[A](l: List[A], r: List[A])(f: (A, A) => A): List[A] = {
+    append(l,r)
   }
 
 }
