@@ -141,7 +141,7 @@ object List { // `List` companion object. Contains functions for creating and wo
   def filter2[A](as: List[A])(f: A => Boolean): List[A] =
     flatMap(as)(x => if (f(x)) List(x) else Nil)
 
-  def zipWith[A](l: List[A], r: List[A])(f: (A, A) => A): List[A] = {
+  def zipWith_first_attempt[A](l: List[A], r: List[A])(f: (A, A) => A): List[A] = {
     def go(a: List[A], b: List[A], acc: List[A]): List[A] = {
       a match {
         case Cons(h,t) => b match {
@@ -154,5 +154,11 @@ object List { // `List` companion object. Contains functions for creating and wo
     }
     go(l,r, Nil:List[A])
   }
+
+  def zipWith[A](a: List[A], b: List[A])(f: (A, A) => A): List[A] = (a, b) match {
+      case (_,Nil) => Nil
+      case (Nil,_) => Nil
+      case (Cons(h1,t1), Cons(h2, t2)) => Cons(f(h1,h2), zipWith[A](t1,t2)(f))
+    }
 
 }
