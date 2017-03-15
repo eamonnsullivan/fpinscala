@@ -142,7 +142,17 @@ object List { // `List` companion object. Contains functions for creating and wo
     flatMap(as)(x => if (f(x)) List(x) else Nil)
 
   def zipWith[A](l: List[A], r: List[A])(f: (A, A) => A): List[A] = {
-    append(l,r)
+    def go(a: List[A], b: List[A], acc: List[A]): List[A] = {
+      a match {
+        case Cons(h,t) => b match {
+          case Cons(hb, tb) =>
+            go(t, tb, append(acc, List(f(h,hb))))
+          case Nil => append(acc, a)
+        }
+        case Nil => append(acc, b)
+      }
+    }
+    go(l,r, Nil:List[A])
   }
 
 }

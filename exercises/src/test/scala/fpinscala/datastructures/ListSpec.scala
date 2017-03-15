@@ -201,4 +201,12 @@ class ListSpec extends FlatSpec with MustMatchers {
     result mustBe List(4,10,18)
   }
 
+  it should "handle when one list is shorter than the other" in {
+    val result1 = List.zipWith(List(1,2,3,4), List(5,6,7))((x,y) => x + y)
+    val result2 = List.zipWith(List(1,2,3), List(4,5,6,7))((x,y) => x + y)
+
+    result1 mustBe List(6,8,10,4)
+    result2 mustBe List(5,7,9,7)
+  }
+
 }
