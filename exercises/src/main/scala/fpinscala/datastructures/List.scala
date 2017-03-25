@@ -55,6 +55,12 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(h, t) => t
     }
 
+  def head[A](l: List[A]): A =
+    l match {
+      case Nil => throw new Exception("Head of empty list")
+      case Cons(h,_) => h
+    }
+
   def setHead[A](l: List[A], h: A): List[A] =
     l match {
       case Nil => Cons(h, Nil)
@@ -159,6 +165,19 @@ object List { // `List` companion object. Contains functions for creating and wo
       case (_,Nil) => Nil
       case (Nil,_) => Nil
       case (Cons(h1,t1), Cons(h2, t2)) => Cons(f(h1,h2), zipWith[A](t1,t2)(f))
+    }
+
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean =
+    sup match {
+      case Nil => (sub == Nil)
+      case Cons(h,t) =>
+        if (sub == Nil) {
+          true
+        } else if (head(sub) == h) {
+          hasSubsequence(t, tail(sub))
+        } else {
+          hasSubsequence(t, sub)
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package fpinscala.datastructures
+package fpinscala.datastructures.answers
 
 sealed trait List[+A] // `List` data type, parameterized on a type, `A`
 case object Nil extends List[Nothing] // A `List` data constructor representing the empty list
@@ -302,10 +302,10 @@ object List { // `List` companion object. Contains functions for creating and wo
   loops early. In Chapter 5 we'll discuss ways of composing functions
   like this from simpler components, without giving up the efficiency
   of having the resulting functions work in one pass over the data.
-  
+
   It's good to specify some properties about these functions.
   For example, do you expect these expressions to be true?
-  
+
   (xs append ys) startsWith xs
   xs startsWith Nil
   (xs append ys append zs) hasSubsequence ys

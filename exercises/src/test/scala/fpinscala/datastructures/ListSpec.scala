@@ -209,4 +209,35 @@ class ListSpec extends FlatSpec with MustMatchers {
     result2 mustBe List(5,7,9)
   }
 
+  "List.hasSubsequence" should "find a one-element subsequence" in {
+    List.hasSubsequence(List(1,2,3,4), List(1)) mustBe true
+  }
+
+  it should "find a subsequence equal to the super list" in {
+    List.hasSubsequence(List(1,2,3,4), List(1,2,3,4)) mustBe true
+  }
+
+  it should "fail to find a subsequence with a different order" in {
+    List.hasSubsequence(List(1,2,3,4), List(4,3)) mustBe false
+  }
+
+  it should "find a subsequence with one less than the super list" in {
+    List.hasSubsequence(List(1,2,3,4), List(1,2,3)) mustBe true
+  }
+
+  it should "handle text elements" in {
+    List.hasSubsequence(List("apple", "pear", "banana"), List("pear", "banana")) mustBe true
+  }
+
+  it should "handle a longer list" in {
+    val sup = List(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30)
+    val sub = List(15,16,17,18,19,20)
+    List.hasSubsequence(sup, sub) mustBe true
+  }
+
+  it should "handle a transposition in the middle" in {
+    val sup = List(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30)
+    val sub = List(15,17,16,18,19,20)
+    List.hasSubsequence(sup, sub) mustBe false
+  }
 }
