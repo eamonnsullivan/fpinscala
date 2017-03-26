@@ -1,4 +1,4 @@
-package fpinscala.errorhandling
+package fpinscala.errorhandling.answers
 
 //hide std library `Option` and `Either`, since we are writing our own in this chapter
 import scala.{Option => _, Either => _, _}
